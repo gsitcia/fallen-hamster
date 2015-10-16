@@ -4,34 +4,34 @@ notes = ['a','bf','b','c','cs','d','ef','e','f','fs','g','af'];
 hexs = [1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
 
 def makeset(n):
-  a = [n];
-  while n > 0:
-    n -= 1;
-    a.append(n);
-  a.reverse();
-  return(a);
+    a = [n];
+    while n > 0:
+        n -= 1;
+        a.append(n);
+    a.reverse();
+    return(a);
 
 def randomset(n):
-  a = makeset(n);
-  m = [];
-  while len(a) > 0:
-    n = random.randrange(0,len(a));
-    m.append(a[n]);
-    del a[n];
-  return(m);
+    a = makeset(n);
+    m = [];
+    while len(a) > 0:
+        n = random.randrange(0,len(a));
+        m.append(a[n]);
+        del a[n];
+    return(m);
 
 def randomize(listo):
-  a = randomset(len(listo)-1);
-  m = [];
-  for i in a:
-    m.append(listo[i]);
-  return(m);
+    a = randomset(len(listo)-1);
+    m = [];
+    for i in a:
+        m.append(listo[i]);
+    return(m);
 
 def numberize(m,r=notes):
-  a = [];
-  for i in m:
-    a.append(r.index(i));
-  return(a);
+    a = [];
+    for i in m:
+        a.append(r.index(i));
+    return(a);
 
 def letterize(m,r=notes):
   a = [];
@@ -137,7 +137,7 @@ def placenew(l,s,p):
     if random.random() <= p:
       placenew(l,s,p/2);
 
-def maket(l):
+def maket(l,p=.35,t=0):
   s = [' A:----','BF:----',' B:----',' C:----','CS:----',' D:----','EF:----',' E:----',' F:----','FS:----',' G:----','AF:----']
   while len(l) > 0:
     for i in s:
@@ -148,16 +148,26 @@ def maket(l):
           i = i[0:-1] + '+';
           if random.randrange(0,8) == 1:
             i = i[0:-1] + str(hexs[random.randrange(0,15)]);
-      if i[-1] == '-':
+      elif i[-1] == '-':
         i = i + '-';
       s[a] = i;
-    placenew(l,s,0.5);
-  for i in s:
-    print(i);
+    placenew(l,s,0.25);
+  if t == 0:
+    for i in s:
+      print(i);
+  if t == 1:
+    q = 0;
+    while q < len(s[0]):
+      b = '';
+      for i in s:
+        b = b + i[q];
+      print(b);
+      q += 1;
 
 
-def maker(n):
-  maket(sequenf(n,rowlr()));
+def maker(n,p=.35,t=0):
+  maket(sequenf(n,rowlr()),p,t);
+
 
 #ex = randomize(notes);
 #rowt(ex);
@@ -165,6 +175,6 @@ def maker(n):
 #lprint(pad(read(13,a)));
 #print(flatten(sequen(1,rowtr(['a','c','ef','b','d','g','fs','af','e','f','cs','bf']))));
 #rowt(['a','c','ef','b','d','g','fs','af','e','f','cs','bf']);
-maker(5);
+#maker(5);
 #x = random.randrange(0,15);
 #print(hexs[random.randrange(0,15)]);
